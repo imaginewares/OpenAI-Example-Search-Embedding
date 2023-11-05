@@ -22,7 +22,6 @@ organization = os.getenv('OPENAI_ORGANIZATION')
 openai.organization = organization
 openai.api_key = secret_key
 
-
 embeddingFilePath = "data/embedding.csv"
 embedding_model = "text-embedding-ada-002"
 
@@ -43,6 +42,5 @@ def search_products(df, search_string, n=3):
 
 def get_results_for_query(query, n=3):
     res = search_products(df, query, n=n)
-    res = res[['externalId', 'title', 'category', 'description']]
     json_obj = res.to_json(orient='records')
     return json_obj

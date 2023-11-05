@@ -15,6 +15,8 @@ load_dotenv()  # take environment variables from .env.
 secret_key = os.getenv('OPENAI_KEY')
 organization = os.getenv('OPENAI_ORGANIZATION')
 
+# Replace columns with column names in your own data-source which you want to use for search
+columns = ["title", "category", "description", "externalId"]
 
 openai.api_key = secret_key
 openai.Model.list()
@@ -26,9 +28,9 @@ max_tokens = 8000  # the maximum for text-embedding-ada-002 is 8191
 
 
 # load & inspect dataset
-input_datapath = "data/output.csv"  # to save space, we provide a pre-filtered dataset
+input_datapath = "data/input.csv"  # to save space, we provide a pre-filtered dataset
 df = pd.read_csv(input_datapath, index_col=0)
-df = df[["title",  "category", "description", "externalId"]]
+df = df[columns]
 df = df.dropna()
 
 df["combined"] = (
